@@ -1,0 +1,25 @@
+<div class='field edit-{{propertyName}}'>
+  <label class={{alignment}}>{{label}}:</label>
+  {{one-way-input class=(if (get changeset.error propertyName) "alert-warning" "")
+                  type=(if password 'password' '')
+                  value=(get changeset propertyName)
+                  placeholder=label
+                  update=(action (mut (get changeset propertyName)))
+                  onblur=(action 'validateProperty' changeset property)
+                  onfocus=(action 'setFocus')}}
+   {{validationRule}}
+
+  {{#if (and (get changeset.error propertyName) hasFocus) }}
+    <div class='field-error w3-round-large'>
+      <ul>
+        {{#each (get (get changeset.error propertyName) 'validation') as |error|}}
+          <li>
+            {{error}}
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+</div>
+
+{{yield}}

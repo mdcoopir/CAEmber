@@ -1,0 +1,60 @@
+@import 'ember-paper';
+@import 'w3';
+@import 'w3-theme-indigo';
+@import "bootstrap";
+
+.bannerImage {
+  background: url("/image/threemenwalking5.png") no-repeat 40% top;
+  background-size: 200px 70px;
+  height: 65px;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 1;
+}
+
+.paper-right {
+  margin-left: auto;
+}
+
+h3 {
+  margin-bottom: 0;
+}
+.logo a button {
+  font-size: 1em;
+}
+.field {
+  position: relative;
+  display: inline-block;
+  // border-bottom: 1px dotted black;
+}
+.field-error {
+  @extend .alert;
+  @extend .alert-warning;
+  @extend .small;
+  visibility: visible;
+  position: absolute;
+  width: 30em;
+  padding: 5px 0;
+  border-radius: 6px;
+  z-index: 1;
+  top: -5px;
+  left: 105%;
+}
+.field-error::after {
+    content: "";
+    position: absolute;
+    top: 1.5em;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #555 transparent transparent;
+}
+.center-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}

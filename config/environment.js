@@ -7,6 +7,15 @@ module.exports = function(environment) {
     environment,
     rootURL: '/',
     locationType: 'auto',
+
+    firebase: {
+      apiKey: "AIzaSyAk95o3xKhVDrEk2L3MhXESvgGHXPQv0yE",
+      authDomain: "christianabide-be5b1.firebaseapp.com",
+      databaseURL: "https://christianabide-be5b1.firebaseio.com",
+      projectId: "christianabide-be5b1",
+      storageBucket: "christianabide-be5b1.appspot.com",
+      messagingSenderId: "874744210416"
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -44,7 +53,14 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    firebase= {
+      apiKey: "AIzaSyAk95o3xKhVDrEk2L3MhXESvgGHXPQv0yE",
+      authDomain: "christianabide-be5b1.firebaseapp.com",
+      databaseURL: "https://christianabide-be5b1.firebaseio.com",
+      projectId: "christianabide-be5b1",
+      storageBucket: "christianabide-be5b1.appspot.com",
+      messagingSenderId: "874744210416"
+    };
   }
 
   return ENV;

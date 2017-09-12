@@ -1,0 +1,40 @@
+<div id="body">
+   <section class="featured">
+      <div class="content-wrapper">
+         <hgroup class="title">
+            <h1>Contact Christian Computer Solutions.  </h1>
+            <h2>Applying todays technology to Christian needs</h2>
+         </hgroup>
+         <p>Here to serve because we have been served</p>
+      </div>
+   </section>
+   <section class="main-content">
+      <h3>Contact Christian Computer Solutions:</h3>
+      <p>Email:  ChristianAbide@gmail.com</p>
+   </section>
+
+   <div class="jumbotron text-center">
+     <h3>Mailing List</h3>
+
+     <div class="form-horizontal form-group form-group-lg row">
+       <div>Don't miss out on important CA information.  Request to be added to our mailng list now.</div>
+       <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-1 col-md-5 col-md-offset-2">
+         {{input type="email" value=model.emailAddress  class="form-control" placeholder="Please type your e-mail address." autofocus="autofocus"}}
+       </div>
+       <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-3">
+           <button disabled={{model.isEmailNotValid}} {{action 'saveMailingList' model}} class="btn btn-primary btn-lg btn-block">Add Me To the Mailing List!</button>
+       </div>
+     </div>
+
+     {{#if responseMessage}}
+       <div class="alert {{alertCSSClass}}">
+         {{responseMessage}}
+       </div>
+     {{/if}}
+
+     <br/><br/>
+   </div>
+   <!--
+   {{request-mailing-list model=model}}
+ -->
+</div>

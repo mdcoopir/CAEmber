@@ -1,0 +1,12 @@
+
+<h1>Login</h1>
+
+
+{{#with (changeset newUser UserValidations) as |changeset|}}
+  {{validated-input changeset=changeset label='Email' propertyName='email' alignment='fieldRight'}}
+  {{validated-input changeset=changeset label='Password' propertyName='password'  alignment='fieldRight' password=true}}
+
+  <button {{action 'login' changeset.email changeset.password}} disabled={{disableLoginButton}}>Login</button>
+{{/with}}
+
+{{outlet}}

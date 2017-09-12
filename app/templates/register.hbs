@@ -1,0 +1,12 @@
+<h1>Register</h1>
+<div>
+  {{validated-input changeset=newUserChangeset label='Email' propertyName='email' alignment='fieldRight'}}
+  {{validated-input changeset=newUserChangeset label='Display Name' propertyName='displayName'  alignment='fieldRight'}}
+  {{validated-input changeset=newUserChangeset label='Password' propertyName='password'  alignment='fieldRight' password=true}}
+  <div sytle="clear:both; ">&nbsp;</div>
+</div>
+<div sytle="clear:both; float: left;">
+  <button {{action 'register' newUserChangeset}} disabled={{disableRegisterButton}}>Register</button>
+</div>
+
+{{outlet}}

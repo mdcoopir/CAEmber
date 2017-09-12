@@ -1,0 +1,92 @@
+
+{{#paper-content}}
+  <div class="layout-row layout-xs-column">
+    <div class="layout-column flex-xs flex-gt-xs-50">
+      {{#with (changeset newUser UserValidations) as |changeset|}}
+
+        {{#paper-card class='gray' as |card|}}
+          {{#card.title as |title|}}
+            {{#title.text as |text|}}
+              {{#text.headline}}Login{{/text.headline}}
+            {{/title.text}}
+          {{/card.title}}
+
+          <div class='center-form'>
+            {{paper-input
+              class='flex-50'
+              label='Email'
+              value=changeset.email
+              onChange=(action (mut changeset.email))
+              required=true
+              type="email"
+              icon="email"
+              customValidations=emailValidation
+            }}
+            {{paper-input
+              class='flex-30'
+              label='Password'
+              value=changeset.password
+              onChange=(action (mut changeset.password))
+              type='password'
+              required=true
+              icon="visibility off"
+              customValidations=passwordValidation
+            }}
+            {{#paper-checkbox
+              value=changeset.rememberme
+              onChange=(action (mut changeset.rememberme))
+            }}Remember me{{/paper-checkbox}}
+          </div>
+          {{#card.actions}}
+            {{#paper-button raised=true onClick=(action 'login' changeset.email changeset.password) disabled=disableLoginButton}}Login{{/paper-button}}
+          {{/card.actions}}
+        {{/paper-card}}
+      {{/with}}
+    </div>
+    <div class="layout-column flex-xs flex-gt-xs-50">
+      {{#with (changeset newUser UserValidations) as |changeset|}}
+        {{#paper-card as |card|}}
+          {{#card.title as |title|}}
+            {{#title.text as |text|}}
+              {{#text.headline}}Register{{/text.headline}}
+            {{/title.text}}
+          {{/card.title}}
+          <div class='center-form'>
+            {{paper-input
+              class='flex-50'
+              label='Email'
+              value=changeset.email
+              onChange=(action (mut changeset.email))
+              required=true
+              type="email"
+              icon="email"
+              customValidations=emailValidation
+            }}
+            {{paper-input
+              class='flex-50'
+              label='Display Name'
+              value=changeset.displayName
+              onChange=(action (mut changeset.displayName))
+              required=true
+              icon="person"
+            }}
+            {{paper-input
+              class='flex-30'
+              label='Password'
+              value=changeset.password
+              onChange=(action (mut changeset.password))
+              type='password'
+              required=true
+              icon="visibility off"
+              customValidations=passwordValidation
+            }}
+          </div>
+          {{#card.actions}}
+            {{#paper-button raised=true onClick=(action 'register' changeset) disabled=disableLoginButton}}Register{{/paper-button}}
+          {{/card.actions}}
+        {{/paper-card}}
+      {{/with}}
+    </div>
+  </div>
+{{/paper-content}}
+{{outlet}}

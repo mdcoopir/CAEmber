@@ -1,5 +1,54 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
+{{#paper-toolbar}}
 
-{{outlet}}
+  {{!-- <div class='logo'>
+    {{#link-to 'index'}}
+      <!--
+      <img src="/image/CALogo.gif" height="50px" width="100px" align="left"/>
+    -->
+      <div>
+        Christian	Abide
+      </div>
+    {{/link-to}}
+    <div style="clear:both"></div>
+  </div> --}}
+  <div class='md-toolbar-tools'>
+    <div class='logo'>
+      {{#link-to 'index'}}{{#paper-button}}
+        {{paper-icon "home"}}
+      Christian	Abide{{/paper-button}}
+      {{/link-to}}
+    </div>
+    <div class="bannerImage">&nbsp;</div>
+    <div class='paper-right'>
+      {{#link-to 'about'}}{{#paper-button}}
+        About CA{{/paper-button}}
+      {{/link-to}}
+      {{#link-to 'poweredBy'}}{{#paper-button}}
+        Built by CCS{{/paper-button}}
+      {{/link-to}}
+      {{#link-to 'contact'}}{{#paper-button}}
+        Contact{{/paper-button}}
+      {{/link-to}}
+      {{#if casession.currentUser}}
+        Welcome {{link-to casession.currentUser.displayName 'members.myHome'}}!
+        {{#paper-button onClick=(action 'logout')}}
+          {{paper-icon "person"}}
+          Logout{{/paper-button}}
+      {{else}}
+        {{#link-to 'login'}}{{#paper-button}}
+          {{paper-icon "person"}}
+          Login/Register{{/paper-button}}
+        {{/link-to}}
+      {{/if}}
+    </div>
+  </div>
+
+{{/paper-toolbar}}
+<div class="flash-message">
+  {{#each flashMessages.queue as |flash|}}
+    {{flash-message flash=flash}}
+  {{/each}}
+</div>
+{{#paper-content class='md-padding'}}
+    {{outlet}}
+{{/paper-content}}

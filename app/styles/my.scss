@@ -1,0 +1,113 @@
+input.ng-invalid {
+    background-color: lightblue;
+}
+w3-container {
+  background-color: blue;
+}
+w3-mytable {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: table;
+}
+.w3-mytable,
+.w3-mytable-all {
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: table
+}
+.w3-mytable-all {
+    border: 1px solid #ccc
+}
+w3-bordered tr,
+.w3-mytable-all tr {
+    border-bottom: 1px solid #ddd
+}
+.w3-mytable td,
+.w3-mytable th,
+.w3-mytable-all td,
+.w3-mytable-all th {
+  display: table-cell;
+  padding: 3px 8px 3px 8px;
+  text-align: left;
+  vertical-align: top
+}
+.w3-mytable th:first-child,
+.w3-mytable td:first-child,
+.w3-mytable-all th:first-child,
+.w3-mytable-all td:first-child {
+    padding-left: 16px
+}
+.menu .logo > a {
+	text-decoration: none !important;
+}
+.menu .logo > a:hover {
+	color: #eee;
+}
+.menu .logo {
+  color: white;/*#f0e68c;*/
+  float: left;
+	font-size: 1.5em;
+	margin-left: 20px;
+  vertical-align: middle;
+	width: 200px;
+}
+.menu .logo div {
+	margin-top: 17px;
+}
+.menu .logo img {
+	margin: 10px 10px 7px 0;
+}
+
+.menu .links {
+  float: right;
+	text-align: right;
+}
+.menu .links a {
+  color: white;
+	margin: 7px;
+	text-decoration: none;
+}
+
+.menu .links a:hover {
+	text-decoration: underline;
+}
+.menu .customer  {
+  clear: right;
+	margin-top: 20px;
+}
+.roundTop-large {
+	border-radius: 8px 8px 0px 0px !important;
+}
+.roundBottom-large {
+	border-radius: 0px 0px 8px 8px !important;
+}
+.addsRow {
+  padding:10px;
+}
+
+.banner .customer .ember-view {
+  float:right;
+}
+.menu .customer .w3-dropdown-click .w3-dropdown-content {
+  z-index: 1;
+}
+
+.menu .customer .w3-dropdown-click a, .menu .customer .w3-dropdown-click a:hover  {
+  display: inline;
+  padding: 0;
+}
+.menu .customer .w3-dropdown-content {
+	margin-left: -75px !important;
+  text-align: left;
+  width:260px;
+}
+
+.menu .customer .w3-dropdown-click a {
+  color: DarkBlue;
+}
+
+
+input[type=checkbox].ember-checkbox {
+  float:none !important;
+}
