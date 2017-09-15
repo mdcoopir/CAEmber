@@ -1,0 +1,22 @@
+<div class=" w3-card">
+
+  <header class="w3-container w3-theme-l1" style='padding-right: .5em;'>
+    <div class="pull-right" style="float:right; margin-right:0;">
+      {{#if (eq post.user.id casession.currentUser.id)}}
+        <span title='Author'>{{post.user.displayName}} &nbsp;</span>
+        <button {{action 'toggleEdit'}}  class="w3-button w3-gray w3-round w3-padding-small" title='Edit this post'><i class="fa fa-pencil" aria-hidden="true"></i></button>
+        <button {{action 'deletePost' post}} class="w3-button w3-gray w3-round w3-padding-small hover-red" title='Delete this post'><i class="fa fa-trash" aria-hidden="true"></i></button>
+      {{else}}
+        {{#link-to 'members.myHome.guest.posts' post.user.id}}{{post.user.displayName}}{{/link-to}}
+      {{/if}}
+      <button class="w3-button w3-gray w3-round w3-padding-small" title='Open Post'>{{#link-to "members.myHome.post" post.id }}<i class="fa fa-search-plus" aria-hidden="true"></i>{{/link-to}}</button>
+    </div>
+    <h4>{{post.title}}</h4>
+  </header>
+  {{#if isEditting}}
+    {{post/edit-post changeset=(changeset post) toggleEdit=(action 'toggleEdit')}}
+  {{else}}
+    {{post/show-post post=post toggleEdit=(action 'toggleEdit')}}
+  {{/if}}
+</div>
+{{comment/comment-main post=post addComment=(action 'addComment') }}

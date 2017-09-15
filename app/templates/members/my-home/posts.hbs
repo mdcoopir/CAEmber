@@ -1,0 +1,36 @@
+
+<div class="layout-row layout-xs-column">
+  <div class='flex-25 flex-md-6 flex-xs-100 box-one'>
+    <details id='detailsNewPost'>
+      <summary>
+        Friends
+      </summary>
+      {{post/edit-post changeset=(changeset model) toggleEdit=(action 'toggleExpand') addPost=(action 'addPost') addingPost=true}}
+    </details>
+  </div>
+  <div class='flex-50 flex-md-6 flex-xs-100 box-one'>
+    <div class="w3-panel w3-card">
+      <details id='detailsNewPost'>
+        <summary>
+           New post
+        </summary>
+        {{post/edit-post changeset=(changeset model) toggleEdit=(action 'toggleExpand') addPost=(action 'addPost') addingPost=true}}
+      </details>
+    </div>
+    {{#if (lt me.posts.length 1)}}
+      <div>
+        You have not posted anything on your page yet.  Click above and post something awesome!!!
+      </div>
+    {{else}}
+      {{#each me.posts as |post|}}
+        {{post/post-main post=post addComment=(action 'addComment') }}
+
+      {{/each}}
+    {{/if}}
+  </div>
+  <div class='flex-25 flex-md-6 flex-xs-100 box-one'>
+    box 3
+  </div>
+</div>
+
+{{outlet}}

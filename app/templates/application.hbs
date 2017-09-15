@@ -1,17 +1,5 @@
 {{#paper-toolbar}}
-
-  {{!-- <div class='logo'>
-    {{#link-to 'index'}}
-      <!--
-      <img src="/image/CALogo.gif" height="50px" width="100px" align="left"/>
-    -->
-      <div>
-        Christian	Abide
-      </div>
-    {{/link-to}}
-    <div style="clear:both"></div>
-  </div> --}}
-  <div class='md-toolbar-tools'>
+  {{#paper-toolbar-tools}}
     <div class='logo'>
       {{#link-to 'index'}}{{#paper-button}}
         {{paper-icon "home"}}
@@ -30,7 +18,7 @@
         Contact{{/paper-button}}
       {{/link-to}}
       {{#if casession.currentUser}}
-        Welcome {{link-to casession.currentUser.displayName 'members.myHome'}}!
+        Welcome {{link-to casession.currentUser.displayName 'members.myHome.main'}}!
         {{#paper-button onClick=(action 'logout')}}
           {{paper-icon "person"}}
           Logout{{/paper-button}}
@@ -41,8 +29,7 @@
         {{/link-to}}
       {{/if}}
     </div>
-  </div>
-
+  {{/paper-toolbar-tools}}
 {{/paper-toolbar}}
 <div class="flash-message">
   {{#each flashMessages.queue as |flash|}}

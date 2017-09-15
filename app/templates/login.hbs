@@ -14,13 +14,12 @@
           <div class='center-form'>
             {{paper-input
               class='flex-50'
-              label='Email'
+              label='Email / Member Name'
               value=changeset.email
               onChange=(action (mut changeset.email))
               required=true
               type="email"
               icon="email"
-              customValidations=emailValidation
             }}
             {{paper-input
               class='flex-30'

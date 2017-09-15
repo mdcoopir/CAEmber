@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 
 export default Ember.Service.extend({
   cookies: Ember.inject.service(),
@@ -6,16 +7,37 @@ export default Ember.Service.extend({
   firebase: Ember.inject.service('firebaseApp'),
 
   currentUser: null,
+  // account: Ember.computed('currentUser.id', function() {
+  //   const user_id =  this.get('currentUser.id');
+  //     return DS.PromiseObject.create({
+  //       promise: this.get('currentUser')
+  //     });
+  // }),
   login(email, password) {
-    let auth = this.get('firebase').auth();
-    return auth.signInWithEmailAndPassword(email, password).then((firebaseUser)=>{
-      return this.get('store').findRecord('user', firebaseUser.uid).then((user) => {
-        this.set('currentUser', user);
-        this.get('cookies').write('currentUserId', user.get('id'));
+    let auth = this.get('firebase').auth(), my_this=this;
+    if(!email.includes('@')) {
+      return this.get('store').query('user', {
+        filter: {
+          displayName: email
+        }
+      }).then((user) => {
+        let userEmail = user.get('firstObject.email');
+        return emailLogin(userEmail, password);
       });
-    });
-
+    } else {
+      return emailLogin(email, password)
+    }
+    function emailLogin(email, password) {
+      return auth.signInWithEmailAndPassword(email, password).then((firebaseUser)=>{
+        return my_this.get('store').findRecord('user', firebaseUser.uid).then((user) => {
+          my_this.set('currentUser', user);
+          my_this.get('cookies').clear('currentUserId');
+          my_this.get('cookies').write('currentUserId', user.get('id'));
+        });
+      });
+    }
   },
+
   register(changeset) {
     let auth = this.get('firebase').auth(), change = changeset.get('change');
 

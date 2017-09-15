@@ -1,0 +1,43 @@
+
+$rounded-corners: 7px;
+
+details, details summary {
+  border-radius: $rounded-corners;
+}
+details[open] summary {
+  border-radius: $rounded-corners $rounded-corners 0 0;
+}
+
+.member-main .box-one {
+  padding-right: .5em;
+}
+.member-main .box-one details summary, .member-main .box-one details[open] summary, .member-main .box-one .w3-card, .member-main .box-one details[open] .body {
+  padding: .5em;
+}
+.member-main .box-one .w3-card, .member-main .box-two .w3-card{
+  border-radius: $rounded-corners;
+}
+.member-main .box-two > .ember-view > .w3-card:first-child,
+.member-main .box-two > .ember-view > .w3-card:first-child header {
+  border-radius: $rounded-corners $rounded-corners 0 0;
+}
+.member-main .box-two > .ember-view > .ember-view > .w3-card:first-child,
+.member-main .box-two > .ember-view > .ember-view > .w3-card:first-child header {
+  border-radius: 0 0 $rounded-corners $rounded-corners;
+}
+.hover-red:hover{
+  background-color: red !important;
+}
+.w3-theme-l2 a {
+  color: white;
+}
+.w3-theme-l2 a:hover {
+  color: white;
+  font-weight: bold;
+}
+.comment-toolbar a {
+  color: blue;
+}
+textarea {
+  color: black !important;
+}

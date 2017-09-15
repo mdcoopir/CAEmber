@@ -1,0 +1,18 @@
+
+<div class="pull-right comment-toolbar" style="float:right; margin-right:.5em;">
+  {{#if (eq post.user.id casession.currentUser.id)}}
+    <span title='Author'>{{post.user.displayName}} &nbsp;</span>
+    <button {{action 'toggleIsEditting'}} class="w3-button w3-gray w3-round w3-padding-small w3-small" title="Edit this comment"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+    <button {{action 'deleteComment' comment}} class="w3-button w3-gray w3-round w3-padding-small w3-small hover-red" title="Delete this comment"><i class="fa fa-trash" aria-hidden="true"></i></button>
+  {{else}}
+    {{#link-to 'members.myHome.guest.posts' post.user.id}}{{post.user.displayName}}{{/link-to}}
+  {{/if}}
+  <button {{action 'toggleAdding'}} class="w3-button w3-gray w3-round w3-padding-small" title="Add a comment"><i class="fa fa-commenting-o" aria-hidden="true"></i></button>
+</div>
+<div class="comment-message">
+  {{comment.message}}
+</div>
+{{#if isAdding}}
+  {{comment/edit-comment changeset=(changeset post) post=comment toggleIsEditting=(action 'toggleAdding') addComment=(action 'addComment')  addingComment=true}}
+{{/if}}
+{{yield}}

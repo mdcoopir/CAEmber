@@ -5,6 +5,7 @@ export default DS.Model.extend({
   title: DS.attr('string'),
   body: DS.attr('string'),
   comments: DS.hasMany('comments'),
+  user: DS.belongsTo('user'),
   numPostComments: Ember.computed('comments@each', function() {
     return this.get('comments').content.length + (parseInt(this.get('numComments')) || 0);
   }),

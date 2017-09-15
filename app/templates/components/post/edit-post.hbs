@@ -1,0 +1,35 @@
+{{#paper-form onSubmit=(action 'savePost' changeset) as |form|}}
+  <div class="layout-row">
+    {{form.input class='flex-100' label="Title" value=changeset.title onChange=(action (mut changeset.title)) required=true }}
+  </div>
+  <div class="layout-row">
+      {{paper-input class='flex-100' textarea=true block=true label="Post" maxlength=350 passThru=(hash rows=5 maxRows=7)
+    value=changeset.body onChange=(action (mut changeset.body)) required=true}}
+  </div>
+  <div class="layout-row">
+    {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+      Save
+    {{/form.submit-button}}
+    {{#paper-button onClick=(action 'toggleEdit')}}Cancel{{/paper-button}}
+    {{#if (not addingPost)}}
+      <button {{action 'deletePost' post}} class="w3-button w3-red w3-padding-small"><i class="fa fa-trash" aria-hidden="true"></i></button>
+    {{/if}}
+  </div>
+{{/paper-form}}
+
+{{!-- <div class="w3-container">
+  <p>
+    Title:  {{focus-text-field type='text' value=changeset.title placeholder='Enter Title'}} <br/>
+    Post:  {{textarea value=changeset.body placeholder='Enter Body'}}
+  </p>
+</div>
+<footer class="w3-container w3-theme-l4 w3-padding-small">
+  <div class="pull-right" style="float:right; margin-right:1em;">
+    <button {{action 'savePost' changeset}} class="w3-button w3-green w3-round w3-padding-small">Save</button>
+    <button {{action 'toggleEdit' }} class="w3-button w3-gray w3-padding-small">Cancel</button>
+    {{#if (not addingPost)}}
+      <button {{action 'deletePost' post}} class="w3-button w3-red w3-padding-small"><i class="fa fa-trash" aria-hidden="true"></i></button>
+    {{/if}}
+  </div>
+</footer> --}}
+{{yield}}

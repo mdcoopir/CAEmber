@@ -1,0 +1,9 @@
+{{focus-text-area value=changeset.message placeholder='Enter Message'}}
+<div class="pull-right" style="float:right; margin-right:1.5em;">
+  <button {{action 'saveComment' changeset post}} class="w3-button w3-green w3-round w3-padding-small w3-small">Save</button>
+  <button {{action 'toggleIsEditting' post}} class="w3-button w3-gray w3-round w3-padding-small w3-small">cancel</button>
+  {{#if (not addingComment)}}
+    <button {{action 'deleteComment' post}} class="w3-button w3-red w3-round w3-padding-small w3-small"><i class="fa fa-trash" aria-hidden="true"></i></button>
+  {{/if}}
+</div>
+{{yield}}

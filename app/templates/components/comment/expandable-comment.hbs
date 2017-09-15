@@ -1,0 +1,20 @@
+{{#if isEditting}}
+  {{comment/edit-comment changeset=(changeset comment) post=post toggleIsEditting=(action 'toggleIsEditting')}}
+{{else}}
+  {{comment/show-comment comment=comment post=post toggleIsEditting=(action 'toggleIsEditting') addComment=(action 'addComment')}}
+{{/if}}
+{{#if (gt comment.numComments 0)}}
+  <details>
+    <summary>
+      {{comment.numComments}} comment{{#if (gt comment.numComments 1)}}s{{/if}}:
+    </summary>
+    {{#each comment.comments as |subComment|}}
+      <div class="w3-panel w3-card" style='margin:0; padding-right:0;'>
+        {{comment/expandable-comment comment=subComment post=post type='comment' addComment=(action 'addComment')}}
+      </div>
+    {{/each}}
+  </details>
+{{/if}}
+
+
+{{yield}}

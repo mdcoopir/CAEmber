@@ -1,0 +1,73 @@
+<div class="layout-row layout-xs-column member-main">
+  <div class='flex-25 flex-md-6 flex-xs-100 box-one'>
+    <div class="w3-panel w3-card" style='padding:0;'>
+      <details>
+        <summary class='w3-theme-l1'>
+          Profile
+          {{#if (or (not me.profile) (not me.profile.displayName))}}
+            *** No Profile **
+          {{/if}}
+        </summary>
+        <div class="body">
+          {{#if (or (not me.profile) (not me.profile.displayName))}}
+            You have not created a profile yet. <br/>
+            Create a profile.
+          {{else}}
+            {{#each me.friends as |friends|}}
+
+              {{!-- {{post/post-main post=post addComment=(action 'addComment') }} --}}
+
+            {{/each}}
+          {{/if}}
+        </div>
+      </details>
+    </div>
+    <div class="w3-panel w3-card" style='padding:0;'>
+      <details>
+        <summary class='w3-theme-l1'>
+          Friends
+          {{#if (or (not me.friends) (lt me.friends.length 1))}}
+            *** None Selected **
+          {{/if}}
+        </summary>
+        <div class="body">
+          {{#if (or (not me.friends) (lt me.friends.length 1))}}
+            You have not selected any friends yet. <br/>
+            Find some friends!!!
+          {{else}}
+            {{#each me.friends as |friends|}}
+
+              {{!-- {{post/post-main post=post addComment=(action 'addComment') }} --}}
+
+            {{/each}}
+          {{/if}}
+        </div>
+      </details>
+    </div>
+  </div>
+  <div class='flex-50 flex-md-6 flex-xs-100 box-two'>
+    <div class="w3-panel w3-card">
+      <details id='detailsNewPost'>
+        <summary>
+          New post
+        </summary>
+        {{post/edit-post changeset=(changeset model) toggleEdit=(action 'toggleExpand') addPost=(action 'addPost') addingPost=true}}
+      </details>
+    </div>
+    {{#if (lt me.posts.length 1)}}
+      <div>
+        You have not posted anything on your page yet. Click above and post something awesome!!!
+      </div>
+    {{else}}
+      {{#each me.posts as |post|}}
+        {{post/post-main post=post addComment=(action 'addComment') }}
+
+      {{/each}}
+    {{/if}}
+  </div>
+  <div class='flex-25 flex-md-6 flex-xs-100 box-three'>
+    box 3
+  </div>
+</div>
+
+{{outlet}}

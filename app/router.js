@@ -17,8 +17,20 @@ Router.map(function() {
   this.route('members', function() {
     this.route('myHome');
 
-    this.route('my-home', function() {
-      this.route('post');
+    this.route('myHome', function() {
+      this.route('post', {path: 'post/:id'});
+      this.route('posts');
+      this.route('main');
+
+      this.route('guest', {path: 'guest/:id'}, function() {
+        this.route('posts');
+      });
+    });
+  });
+
+  this.route('member', function() {
+    this.route('myHome', function() {
+      this.route('profile');
     });
   });
 });

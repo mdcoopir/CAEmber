@@ -1,8 +1,15 @@
 @import 'ember-paper';
 @import 'w3';
 @import 'w3-theme-indigo';
+@import 'posts';
+@import 'comments';
+@import 'members';
 @import "bootstrap";
 
+summary{
+  outline:none;
+  cursor: pointer;
+}
 .bannerImage {
   background: url("/image/threemenwalking5.png") no-repeat 40% top;
   background-size: 200px 70px;

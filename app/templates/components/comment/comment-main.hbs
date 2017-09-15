@@ -1,0 +1,25 @@
+<div class="w3-panel w3-card w3-theme-l2" style="margin-top:-.1em; padding-right: .5em;">
+  {{#if isAdding}}
+    {{comment/edit-comment changeset=(changeset post) post=post toggleIsEditting=(action 'toggleAdding') addComment=(action 'addComment')  addingComment=true}}
+  {{/if}}
+  {{#if (lte post.comments.content.length 0) }}
+    {{#if (not isAdding)}}
+      No comments yet...  <a href="#" {{action "toggleAdding"}}>Be the first</a>!
+    {{/if}}
+  {{else}}
+    <div style='float:right'>
+      <button {{action 'toggleAdding'}} class="w3-button w3-gray w3-round w3-padding-small" title="Add a comment to this post"><i class="fa fa-commenting-o" aria-hidden="true"></i></button>
+    </div>
+    <details>
+      <summary>
+        {{post.numPostComments}} comment{{#if (gt post.comments.content.length 1)}}s{{/if}}
+      </summary>
+      {{#each post.comments as |comment|}}
+        <div class="w3-panel w3-card w3-theme-l4" style='margin-right: 0; padding-right:0;'>
+          {{comment/expandable-comment comment=comment post=post type='comment' addComment=(action 'addComment')}}
+        </div>
+      {{/each}}
+    </details>
+  {{/if}}
+</div>
+{{yield}}
