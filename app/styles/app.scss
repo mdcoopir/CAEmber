@@ -10,6 +10,9 @@ summary{
   outline:none;
   cursor: pointer;
 }
+.myMenu {
+  margin: 0;
+}
 .bannerImage {
   background: url("/image/threemenwalking5.png") no-repeat 40% top;
   background-size: 200px 70px;
@@ -19,7 +22,16 @@ summary{
   margin-right: auto;
   z-index: 1;
 }
-
+@media only screen and (max-width: 960px) {
+  .myMenu {
+    display: block;
+  }
+  .bannerImage {
+    background-size: 175px 55px;
+    height: 50px;
+    width: 200px;
+  }
+}
 .paper-right {
   margin-left: auto;
 }

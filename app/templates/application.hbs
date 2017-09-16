@@ -1,33 +1,53 @@
 {{#paper-toolbar}}
   {{#paper-toolbar-tools}}
+    
     <div class='logo'>
-      {{#link-to 'index'}}{{#paper-button}}
-        {{paper-icon "home"}}
-      Christian	Abide{{/paper-button}}
+      {{#link-to 'index'}}
+        {{#paper-button}}
+          {{paper-icon "home"}} Christian Abide
+        {{/paper-button}}
       {{/link-to}}
     </div>
     <div class="bannerImage">&nbsp;</div>
-    <div class='paper-right'>
-      {{#link-to 'about'}}{{#paper-button}}
-        About CA{{/paper-button}}
-      {{/link-to}}
-      {{#link-to 'poweredBy'}}{{#paper-button}}
-        Built by CCS{{/paper-button}}
-      {{/link-to}}
-      {{#link-to 'contact'}}{{#paper-button}}
-        Contact{{/paper-button}}
-      {{/link-to}}
-      {{#if casession.currentUser}}
-        Welcome {{link-to casession.currentUser.displayName 'members.myHome.main'}}!
-        {{#paper-button onClick=(action 'logout')}}
-          {{paper-icon "person"}}
-          Logout{{/paper-button}}
-      {{else}}
-        {{#link-to 'login'}}{{#paper-button}}
-          {{paper-icon "person"}}
-          Login/Register{{/paper-button}}
-        {{/link-to}}
-      {{/if}}
+    <div class='paper-right siteMenu'>
+      {{#paper-menu class='memberMenu' as |menu|}}
+        {{#menu.trigger}}
+          {{#paper-button }}
+            {{paper-icon "more vert"}}
+          {{/paper-button}}
+        {{/menu.trigger}}
+        {{#menu.content class='memberMenu' width=4 as |content|}}
+          {{#if casession.currentUser}}
+            {{#content.menu-item onClick=(action 'nav' 'members.myHome.main' )}}
+              {{paper-icon "home"}} {{casession.currentUser.displayName}}
+            {{/content.menu-item}}
+            {{#content.menu-item onClick=(action 'nav' 'members.myHome.profile' )}}
+              {{paper-icon "person"}} 'My Profile'
+            {{/content.menu-item}}
+            {{#content.menu-item onClick=(action 'logout')}}
+              {{paper-icon "forward"}} Logout
+            {{/content.menu-item}}
+          {{else}}
+            {{#content.menu-item onClick=(action 'nav' 'login' )}}
+              {{paper-icon "person"}} Login/Register
+            {{/content.menu-item}}
+          {{/if}}
+          {{paper-divider}}
+          {{#content.menu-item onClick=(action 'nav' 'about' )}}
+            {{#paper-button}}
+              About CA{{/paper-button}}
+          {{/content.menu-item}}
+          {{#content.menu-item onClick=(action 'nav' 'poweredBy' )}}
+            {{#paper-button}}
+              Built by CCS{{/paper-button}}
+          {{/content.menu-item}}
+          {{#content.menu-item onClick=(action 'nav' 'contact' )}}
+            {{#paper-button}}
+              Contact{{/paper-button}}
+          {{/content.menu-item}}
+        {{/menu.content}}
+      {{/paper-menu}}
+
     </div>
   {{/paper-toolbar-tools}}
 {{/paper-toolbar}}
@@ -36,6 +56,6 @@
     {{flash-message flash=flash}}
   {{/each}}
 </div>
-{{#paper-content class='md-padding'}}
-    {{outlet}}
+{{#paper-content class='md-padding' }}
+  {{outlet}}
 {{/paper-content}}

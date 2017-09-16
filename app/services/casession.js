@@ -13,6 +13,7 @@ export default Ember.Service.extend({
   //       promise: this.get('currentUser')
   //     });
   // }),
+  
   login(email, password) {
     let auth = this.get('firebase').auth(), my_this=this;
     if(!email.includes('@')) {

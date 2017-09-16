@@ -1,16 +1,9 @@
 import Ember from 'ember';
-import UserValidations from '../validations/user';
-import lookupValidator from 'ember-changeset-validations';
-import Changeset from 'ember-changeset';
 
 export default Ember.Controller.extend({
-  UserValidations,
-  store: Ember.inject.service(),
   casession: Ember.inject.service(),
-  flashMessages: Ember.inject.service(),
-  newUser: null,
-  newUserChangeset: null,
-
+  store: Ember.inject.service(),
+  me: Ember.computed.alias('casession.currentUser'),
   emailValidation: [{
     message: 'Please provide email in a valid format',
     validate: (inputValue) => {
@@ -25,23 +18,8 @@ export default Ember.Controller.extend({
       return emailPattern.test(inputValue);
     }
   }],
-
-  init(){
-    let newUserTemp =  this.get('store').createRecord('user', {email: "", displayName: "", password: ""});
-    this.set('newUser', newUserTemp);
-    this.set('newUserChangeset', new Changeset(this.get('newUser'), lookupValidator(UserValidations), UserValidations));
-  },
   actions: {
-    login(email, password){
-      this.get('casession').login(email, password).then(() => {
-        let message = 'You are logged in as: '+this.get('casession.currentUser.displayName');
-        this.get('flashMessages').success(message);
-        this.transitionToRoute('members.myHome');
-      }).catch(() => {
-        this.get('flashMessages').danger('Email and password are not valid.');
-      });
-    },
-    register(changeset){
+    saveAccount(changeset) {
       this.get('flashMessages').clearMessages();
       this.get('casession').register(changeset).then(() => {
         let message = 'You are registered in as: '+this.get('casession.currentUser.displayName');

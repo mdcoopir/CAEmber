@@ -6,6 +6,13 @@ export default Ember.Controller.extend({
     logout(){
       this.get('casession').logout();
       this.transitionToRoute('home');
+    },
+    nav(location){
+      this.transitionToRoute(location);
+//      this.send('closeMenu', menu);
+    },
+    closeMenu(menu) {
+      menu.close();
     }
   }
 });

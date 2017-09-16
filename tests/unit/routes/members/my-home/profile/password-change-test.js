@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('route:member/my-home/profile', 'Unit | Route | member/my home/profile', {
+moduleFor('route:members/my-home/profile/password-change', 'Unit | Route | members/my home/profile/password change', {
   // Specify the other units that are required for this test.
   // needs: ['controller:foo']
 });

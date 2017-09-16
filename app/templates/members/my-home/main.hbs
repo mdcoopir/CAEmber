@@ -1,3 +1,14 @@
+{{!-- {{#paper-sidenav-container class="inner-sidenav" }} --}}
+{{!-- {{#paper-sidenav class="md-whiteframe-z2" name="left2" open=leftSideBarOpen2 lockedOpen=leftSideBarLockedOpen onToggle=(action (mut leftSideBarOpen2))}}
+    {{#paper-toolbar as |toolbar|}}
+      {{#paper-toolbar-tools}}Left Sidenav{{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+    {{#paper-content padding=true}} --}}
+
+{{!-- {{/paper-content}}
+  {{/paper-sidenav}}
+
+  {{#paper-card-content class="flex" }} --}}
 <div class="layout-row layout-xs-column member-main">
   <div class='flex-25 flex-md-6 flex-xs-100 box-one'>
     <div class="w3-panel w3-card" style='padding:0;'>
@@ -10,8 +21,7 @@
         </summary>
         <div class="body">
           {{#if (or (not me.profile) (not me.profile.displayName))}}
-            You have not created a profile yet. <br/>
-            Create a profile.
+            You have not created a profile yet. <br/> Create a profile.
           {{else}}
             {{#each me.friends as |friends|}}
 
@@ -28,14 +38,38 @@
           Friends
           {{#if (or (not me.friends) (lt me.friends.length 1))}}
             *** None Selected **
+          {{else}}
+            You've got a friend in me!
           {{/if}}
         </summary>
         <div class="body">
           {{#if (or (not me.friends) (lt me.friends.length 1))}}
-            You have not selected any friends yet. <br/>
-            Find some friends!!!
+            You have not selected any friends yet. <br/> Find some friends!!!
           {{else}}
-            {{#each me.friends as |friends|}}
+            {{#each me.friends as |friend|}}
+
+              {{!-- {{post/post-main post=post addComment=(action 'addComment') }} --}}
+
+            {{/each}}
+          {{/if}}
+        </div>
+      </details>
+    </div>
+    <div class="w3-panel w3-card" style='padding:0;'>
+      <details>
+        <summary class='w3-theme-l1'>
+          My Events
+          {{#if (or (not me.events) (lt me.events.length 1))}}
+            *** No Events **
+          {{else}}
+            You've got events!
+          {{/if}}
+        </summary>
+        <div class="body">
+          {{#if (or (not me.events) (lt me.events.length 1))}}
+            You have not made any events yet. <br/> Create an event!
+          {{else}}
+            {{#each me.events as |event|}}
 
               {{!-- {{post/post-main post=post addComment=(action 'addComment') }} --}}
 
@@ -66,8 +100,31 @@
     {{/if}}
   </div>
   <div class='flex-25 flex-md-6 flex-xs-100 box-three'>
-    box 3
+    <div class="w3-panel w3-card" style='padding:0;'>
+      <details>
+        <summary class='w3-theme-l1'>
+          Abiding
+          {{#if (or (not me.abides) (lt me.abides.length 1))}}
+            *** No Abides **
+          {{else}}
+            You've abided!
+          {{/if}}
+        </summary>
+        <div class="body">
+          {{#if (or (not me.abides) (lt me.abides.length 1))}}
+            You have abided yet. <br/> Abide!
+          {{else}}
+            {{#each me.abides as |abide|}}
+
+              {{!-- {{post/post-main post=post addComment=(action 'addComment') }} --}}
+
+            {{/each}}
+          {{/if}}
+        </div>
+      </details>
+    </div>
   </div>
 </div>
-
-{{outlet}}
+  {{!-- {{/paper-card-content}}
+{{/paper-sidenav-container}} --}}
+  {{outlet}}

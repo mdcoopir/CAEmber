@@ -20,19 +20,17 @@ Router.map(function() {
     this.route('myHome', function() {
       this.route('post', {path: 'post/:id'});
       this.route('posts');
-      this.route('main');
+      this.route('main', {path: '/'});
 
       this.route('guest', {path: 'guest/:id'}, function() {
         this.route('posts');
       });
+      this.route('profile', function() {
+        this.route('passwordChange');
+      });
     });
   });
 
-  this.route('member', function() {
-    this.route('myHome', function() {
-      this.route('profile');
-    });
-  });
 });
 
 export default Router;

@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
   newTitle: null,
   newBody: null,
   me: Ember.computed.alias('casession.currentUser'),
+  leftSideBarOpen2: true,
 
   actions: {
     toggleExpand() {

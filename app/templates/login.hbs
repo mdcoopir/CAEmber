@@ -10,35 +10,41 @@
               {{#text.headline}}Login{{/text.headline}}
             {{/title.text}}
           {{/card.title}}
-
-          <div class='center-form'>
-            {{paper-input
-              class='flex-50'
-              label='Email / Member Name'
-              value=changeset.email
-              onChange=(action (mut changeset.email))
-              required=true
-              type="email"
-              icon="email"
-            }}
-            {{paper-input
-              class='flex-30'
-              label='Password'
-              value=changeset.password
-              onChange=(action (mut changeset.password))
-              type='password'
-              required=true
-              icon="visibility off"
-              customValidations=passwordValidation
-            }}
-            {{#paper-checkbox
-              value=changeset.rememberme
-              onChange=(action (mut changeset.rememberme))
-            }}Remember me{{/paper-checkbox}}
-          </div>
-          {{#card.actions}}
-            {{#paper-button raised=true onClick=(action 'login' changeset.email changeset.password) disabled=disableLoginButton}}Login{{/paper-button}}
-          {{/card.actions}}
+          {{#paper-form class='center-form' style='min-width:20em;' onSubmit=(action 'login' changeset.email changeset.password) as |form|}}
+            <div class="layout-row" style='min-width: 30em;'>
+              {{paper-input
+                class='flex-80'
+                label='Email / Display Name'
+                value=changeset.email
+                onChange=(action (mut changeset.email))
+                required=true
+                icon="email"
+              }}
+            </div>
+            <div class="layout-row" style='min-width: 30em;'>
+              {{paper-input
+                class='flex-80'
+                label='Password'
+                value=changeset.password
+                onChange=(action (mut changeset.password))
+                type='password'
+                required=true
+                icon="visibility off"
+                customValidations=passwordValidation
+              }}
+            </div>
+            <div class="layout-row" style='min-width: 30em;'>
+              {{#paper-checkbox
+                value=changeset.rememberme
+                onChange=(action (mut changeset.rememberme))
+              }}Remember me{{/paper-checkbox}}
+            </div>
+            <div class="layout-row">
+              {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+                LOGIN
+              {{/form.submit-button}}
+            </div>
+          {{/paper-form}}
         {{/paper-card}}
       {{/with}}
     </div>
@@ -50,39 +56,47 @@
               {{#text.headline}}Register{{/text.headline}}
             {{/title.text}}
           {{/card.title}}
-          <div class='center-form'>
-            {{paper-input
-              class='flex-50'
-              label='Email'
-              value=changeset.email
-              onChange=(action (mut changeset.email))
-              required=true
-              type="email"
-              icon="email"
-              customValidations=emailValidation
-            }}
-            {{paper-input
-              class='flex-50'
-              label='Display Name'
-              value=changeset.displayName
-              onChange=(action (mut changeset.displayName))
-              required=true
-              icon="person"
-            }}
-            {{paper-input
-              class='flex-30'
-              label='Password'
-              value=changeset.password
-              onChange=(action (mut changeset.password))
-              type='password'
-              required=true
-              icon="visibility off"
-              customValidations=passwordValidation
-            }}
-          </div>
-          {{#card.actions}}
-            {{#paper-button raised=true onClick=(action 'register' changeset) disabled=disableLoginButton}}Register{{/paper-button}}
-          {{/card.actions}}
+          {{#paper-form class='center-form' style='min-width:20em;' onSubmit=(action 'register' changeset) as |form|}}
+            <div class="layout-row" style='min-width: 30em;'>
+              {{paper-input
+                class='flex-80'
+                label='Email'
+                value=changeset.email
+                onChange=(action (mut changeset.email))
+                required=true
+                type="email"
+                icon="email"
+                customValidations=emailValidation
+              }}
+            </div>
+            <div class="layout-row" style='min-width: 30em;'>
+              {{paper-input
+                class='flex-80'
+                label='Display Name'
+                value=changeset.displayName
+                onChange=(action (mut changeset.displayName))
+                required=true
+                icon="person"
+              }}
+            </div>
+            <div class="layout-row" style='min-width: 30em;'>
+              {{paper-input
+                class='flex-80'
+                label='Password'
+                value=changeset.password
+                onChange=(action (mut changeset.password))
+                type='password'
+                required=true
+                icon="visibility off"
+                customValidations=passwordValidation
+              }}
+            </div>
+            <div class="layout-row">
+              {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+                Register
+              {{/form.submit-button}}
+            </div>
+          {{/paper-form}}
         {{/paper-card}}
       {{/with}}
     </div>
