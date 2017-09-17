@@ -29,6 +29,8 @@ export default Ember.Controller.extend({
   init(){
     let newUserTemp =  this.get('store').createRecord('user', {email: "", displayName: "", password: ""});
     this.set('newUser', newUserTemp);
+  },
+  didTransition(){
     this.set('newUserChangeset', new Changeset(this.get('newUser'), lookupValidator(UserValidations), UserValidations));
   },
   actions: {

@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import DS from 'ember-data';
 
 export default Ember.Service.extend({
   cookies: Ember.inject.service(),
@@ -13,7 +12,7 @@ export default Ember.Service.extend({
   //       promise: this.get('currentUser')
   //     });
   // }),
-  
+
   login(email, password) {
     let auth = this.get('firebase').auth(), my_this=this;
     if(!email.includes('@')) {
@@ -26,7 +25,7 @@ export default Ember.Service.extend({
         return emailLogin(userEmail, password);
       });
     } else {
-      return emailLogin(email, password)
+      return emailLogin(email, password);
     }
     function emailLogin(email, password) {
       return auth.signInWithEmailAndPassword(email, password).then((firebaseUser)=>{
@@ -34,6 +33,7 @@ export default Ember.Service.extend({
           my_this.set('currentUser', user);
           my_this.get('cookies').clear('currentUserId');
           my_this.get('cookies').write('currentUserId', user.get('id'));
+          my_this.get('cookies').write('ca.remember', user.get('remember'));
         });
       });
     }
@@ -44,20 +44,31 @@ export default Ember.Service.extend({
 
     return changeset.validate().then(()=>{
       if(changeset.get('isValid')) {
-        return auth.createUserWithEmailAndPassword(change.email, change.password).then((firebaseUser)=>{
-          changeset.set('id', firebaseUser.uid);
-          let tempPassword = changeset.get('password');
-          changeset.set('password', 'OnAuth12');
-          return changeset.save().then(()=>{
-            change.password = tempPassword;
-            return changeset;
-          });
+        return this.get('store').query('user', {
+          filter: {
+            displayName: changeset.displayName
+          }
+        }).then(() => {
+          return Ember.RSVP.reject({message: 'Display Name "'+change.displayName+'" already exist.  Please select a different Display Name'});
+        }).catch((error) =>{
+          if(error.message.startsWith("Display Name")){
+            return Ember.RSVP.reject(error);
+          } else {
+            return auth.createUserWithEmailAndPassword(change.email, change.password).then((firebaseUser)=>{
+              changeset.set('id', firebaseUser.uid);
+              let tempPassword = changeset.get('password');
+              changeset.set('password', 'OnAuth12');
+              return changeset.save().then(()=>{
+                change.password = tempPassword;
+                return changeset;
+              });
+            });
+          }
         });
       } else {
         return Ember.RSVP.reject(changeset.get('errors'));
       }
-    })
-    .then(() => {
+    }).then(() => {
       return this.login(change.email, change.password);
     });
   },
