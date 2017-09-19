@@ -21,10 +21,15 @@ export default Ember.Controller.extend({
   actions: {
     saveAccount(changeset) {
       this.get('flashMessages').clearMessages();
-      this.get('casession').register(changeset).then(() => {
-        let message = 'You are registered in as: '+this.get('casession.currentUser.displayName');
-        this.get('flashMessages').success(message);
-        this.transitionToRoute('members.myHome');
+
+      changeset.validate().then(()=>{
+        return changeset.save().then(()=>{
+          let message = 'Profile saved for member: '+this.get('casession.currentUser.displayName');
+          this.get('flashMessages').success(message);
+          return changeset;
+        }).catch((errors) => {
+          return Ember.RSVP.reject(errors);
+        });
       }).catch((errors) => {
         if(Ember.isArray(errors)) {
           errors.forEach((error)=>{

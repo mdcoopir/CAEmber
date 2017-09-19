@@ -1,46 +1,46 @@
 <h2>Profile</h2>
 {{#paper-content}}
   <div class="layout-row layout-xs-column">
-    <div class="layout-column flex-xs flex-gt-xs-50" style='min-width: 28em;'>
-      {{#paper-card as |card|}}
-        {{#card.title as |title|}}
-          {{#title.text as |text|}}
-            {{#text.headline}}Account{{/text.headline}}
-          {{/title.text}}
-        {{/card.title}}
-        {{#card.content class='center-form' }}
-          <div class="layout-row layout-align-left" style='min-width: 25em;'>
-            {{paper-input
+    {{#with (changeset me ) as |changeset|}}
+      <div class="layout-column flex-xs flex-gt-xs-50" style='min-width: 28em;'>
+        {{#paper-card as |card|}}
+          {{#card.title as |title|}}
+            {{#title.text as |text|}}
+              {{#text.headline}}Account{{/text.headline}}
+            {{/title.text}}
+          {{/card.title}}
+          {{#card.content class='center-form' }}
+            <div class="layout-row layout-align-left" style='min-width: 25em;'>
+              {{paper-input
               class='flex-80'
               label='Display Name'
               value=me.displayName
               onChange=(action (mut me.displayName))
               disabled=true
             }}
-          </div>
-          <div class="layout-row" style='min-width: 25em;'>
-            {{paper-input
+            </div>
+            <div class="layout-row" style='min-width: 25em;'>
+              {{paper-input
               class='flex-80'
               label='Email'
               value=me.email
               onChange=(action (mut me.email))
               disabled=true
             }}
-          </div>
-          <div class="layout-row" style='min-width: 25em;'>
-            {{paper-input
+            </div>
+            <div class="layout-row" style='min-width: 25em;'>
+              {{paper-input
               class='flex-80'
               label='Password'
               value=me.password
               onChange=(action (mut me.password))
               disabled=true
             }}
-            {{#link-to 'members.myHome.profile.passwordChange' }}Change Password{{/link-to}}
-          </div>
-        {{/card.content}}
-      {{/paper-card}}
-    </div>
-    {{#with (changeset me ) as |changeset|}}
+              {{#link-to 'members.myHome.profile.passwordChange' }}Change Password{{/link-to}}
+            </div>
+          {{/card.content}}
+        {{/paper-card}}
+      </div>
       <div class="layout-column flex-xs flex-gt-xs-50" style='min-width: 28em;'>
         {{#paper-card as |card|}}
           {{#card.title as |title|}}
