@@ -1,6 +1,6 @@
 {{#paper-toolbar}}
-  {{#paper-toolbar-tools}}
-    
+  {{#paper-toolbar-tools class='topNav'}}
+
     <div class='logo'>
       {{#link-to 'index'}}
         {{#paper-button}}
@@ -10,6 +10,7 @@
     </div>
     <div class="bannerImage">&nbsp;</div>
     <div class='paper-right siteMenu'>
+      {{#link-to "members.myHome.main"}}{{casession.currentUser.displayName}}{{/link-to}}
       {{#paper-menu class='memberMenu' as |menu|}}
         {{#menu.trigger}}
           {{#paper-button }}

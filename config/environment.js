@@ -53,7 +53,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    firebase= {
+    ENV.firebase = {
       apiKey: "AIzaSyAk95o3xKhVDrEk2L3MhXESvgGHXPQv0yE",
       authDomain: "christianabide-be5b1.firebaseapp.com",
       databaseURL: "https://christianabide-be5b1.firebaseio.com",

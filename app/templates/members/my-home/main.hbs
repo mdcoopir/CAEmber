@@ -15,20 +15,17 @@
       <details>
         <summary class='w3-theme-l1'>
           Profile
-          {{#if (or (not me.profile) (not me.profile.displayName))}}
-            *** No Profile **
-          {{/if}}
         </summary>
         <div class="body">
-          {{#if (or (not me.profile) (not me.profile.displayName))}}
-            You have not created a profile yet. <br/> Create a profile.
-          {{else}}
-            {{#each me.friends as |friends|}}
 
-              {{!-- {{post/post-main post=post addComment=(action 'addComment') }} --}}
+              {{me.displayName}}<br />
+              {{me.email}}<br />
+              {{me.firstName}} {{me.lastName}}
 
-            {{/each}}
-          {{/if}}
+              <div class="layout-row" >
+                {{#link-to 'members.myHome.profile' }}Edit Profile{{/link-to}}
+              </div>
+          
         </div>
       </details>
     </div>
