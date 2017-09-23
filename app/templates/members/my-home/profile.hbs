@@ -1,46 +1,58 @@
 <h2>Profile</h2>
 {{#paper-content}}
   <div class="layout-row layout-xs-column">
+    <div class="layout-column flex-xs flex-gt-xs-50" style='min-width: 28em;'>
+      {{#paper-card as |card|}}
+        {{#card.title as |title|}}
+          {{#title.text as |text|}}
+            {{#text.headline}}Account{{/text.headline}}
+          {{/title.text}}
+        {{/card.title}}
+        {{#card.content class='center-form' }}
+          {{#with (changeset me ) as |changeset|}}
+            {{#paper-form class='center-form' style='min-width:30em;' onSubmit=(action 'saveAccount' changeset) as |form|}}
+              <div class="layout-row layout-align-left" style='min-width: 25em;'>
+                {{paper-input
+                  class='flex-80' label='Display Name' value=changeset.displayName onChange=(action (mut changeset.displayName)) }}
+              </div>
+              <div class="layout-row" style='min-width: 25em;'>
+                {{paper-input
+                  class='flex-80'
+                  label='Email'
+                  value=changeset.email
+                  onChange=(action (mut changeset.email))
+                  customValidations=emailValidation
+                }}
+                {{#if changeset.isdirty}}
+                  is Dirty
+                {{else}}
+                  Not dirty
+                {{/if}}
+              </div>
+
+              <div class="layout-row" style='min-width: 25em;'>
+                {{paper-input
+                  class='flex-80'
+                  label='New Password'
+                  value=changeset.password
+                  onChange=(action (mut changeset.password))
+                  type='password'
+                  customValidations=passwordValidation
+                }}
+              </div>
+              <div class="layout-row" style='min-width: 25em;'>
+                {{#form.submit-button raised=true primary=true disabled=form.isInvalid}}
+                  Save
+                {{/form.submit-button}}
+              </div>
+            {{/paper-form}}
+          {{/with}}
+
+
+        {{/card.content}}
+      {{/paper-card}}
+    </div>
     {{#with (changeset me ) as |changeset|}}
-      <div class="layout-column flex-xs flex-gt-xs-50" style='min-width: 28em;'>
-        {{#paper-card as |card|}}
-          {{#card.title as |title|}}
-            {{#title.text as |text|}}
-              {{#text.headline}}Account{{/text.headline}}
-            {{/title.text}}
-          {{/card.title}}
-          {{#card.content class='center-form' }}
-            <div class="layout-row layout-align-left" style='min-width: 25em;'>
-              {{paper-input
-              class='flex-80'
-              label='Display Name'
-              value=me.displayName
-              onChange=(action (mut me.displayName))
-              disabled=true
-            }}
-            </div>
-            <div class="layout-row" style='min-width: 25em;'>
-              {{paper-input
-              class='flex-80'
-              label='Email'
-              value=me.email
-              onChange=(action (mut me.email))
-              disabled=true
-            }}
-            </div>
-            <div class="layout-row" style='min-width: 25em;'>
-              {{paper-input
-              class='flex-80'
-              label='Password'
-              value=me.password
-              onChange=(action (mut me.password))
-              disabled=true
-            }}
-              {{#link-to 'members.myHome.profile.passwordChange' }}Change Password{{/link-to}}
-            </div>
-          {{/card.content}}
-        {{/paper-card}}
-      </div>
       <div class="layout-column flex-xs flex-gt-xs-50" style='min-width: 28em;'>
         {{#paper-card as |card|}}
           {{#card.title as |title|}}
@@ -58,8 +70,9 @@
                 required=true
                 type="email"
                 icon="email"
-                customValidations=emailValidation
+                customValidations=emailValidationAlt
               }}
+
             </div>
             <div class="layout-row" style='min-width: 25em;'>
               {{paper-input
