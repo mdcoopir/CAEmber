@@ -21,7 +21,10 @@ export default Ember.Service.extend({
           displayName: email
         }
       }).then((user) => {
-        let userEmail = user.get('firstObject.email');
+        let filteredRecords = user.filter((item)=>{
+          return item.get('displayName')===email;
+        }, user);
+        let userEmail = filteredRecords.get('firstObject.email');
         return emailLogin(userEmail, password);
       });
     } else {
@@ -40,37 +43,50 @@ export default Ember.Service.extend({
   },
 
   register(changeset) {
-    let auth = this.get('firebase').auth(), change = changeset.get('change');
-
-    return changeset.validate().then(()=>{
-      if(changeset.get('isValid')) {
-        return this.get('store').query('user', {
-          filter: {
-            displayName: changeset.displayName
-          }
-        }).then(() => {
-          return Ember.RSVP.reject({message: 'Display Name "'+change.displayName+'" already exist.  Please select a different Display Name'});
-        }).catch((error) =>{
-          if(error.message.startsWith("Display Name")){
-            return Ember.RSVP.reject(error);
-          } else {
-            return auth.createUserWithEmailAndPassword(change.email, change.password).then((firebaseUser)=>{
-              changeset.set('id', firebaseUser.uid);
-              let tempPassword = changeset.get('password');
-              changeset.set('password', 'OnAuth12');
-              return changeset.save().then(()=>{
-                change.password = tempPassword;
-                return changeset;
-              });
-            });
-          }
+    let auth = this.get('firebase').auth(), change = changeset.get('change'), my_this = this;
+    // let errorMsg = 'Display Name "'+change.displayName+'" already exist.  Please select a different Display Name';
+    return this.get('userNotExist')(my_this, changeset).then(()=>{
+    //return this.get('userNotExist')(changeset).then(()=>{
+      return auth.createUserWithEmailAndPassword(change.email, change.password).then((firebaseUser)=>{
+        changeset.set('id', firebaseUser.uid);
+        let tempPassword = changeset.get('password');
+        changeset.set('password', 'OnAuth12');
+        return changeset.save().then(()=>{
+          change.password = tempPassword;
+          return changeset;
         });
-      } else {
-        return Ember.RSVP.reject(changeset.get('errors'));
-      }
-    }).then(() => {
-      return this.login(change.email, change.password);
+      });
+    }).catch((error)=>{
+      return Ember.RSVP.reject({message: error});
     });
+  },
+
+  updateAccount(changeset) {
+    let auth = this.get('firebase').auth(), change = changeset.get('change'), my_this = this;
+    return this.get('userNotExist')(my_this, changeset).then(()=>{
+      var user = auth.currentUser;
+      user.updateProfile({
+        displayName: change.displayName,
+      }).then(function() {
+        user.updateEmail(change.email).then(function(firebaseUser) {
+          changeset.set('id', firebaseUser.uid);
+          let tempPassword = changeset.get('password');
+          changeset.set('password', 'OnAuth12');
+          return changeset.save().then(()=>{
+            change.password = tempPassword;
+            return changeset;
+          });
+        }).catch(function(error) {
+          return Ember.RSVP.reject({message: error});
+        });
+
+      }).catch(function(error) {
+        return Ember.RSVP.reject({message: error});
+      });
+    }).catch((error)=>{
+      return Ember.RSVP.reject({message: error});
+    });
+
   },
   logout(){
     let auth = this.get('firebase').auth();
@@ -86,5 +102,50 @@ export default Ember.Service.extend({
         this.set('currentUser', user);
       });
     }
+  },
+  emailNotExist(fieldValue){
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      let my_this=this;
+      my_this.get('userNotExistField')(my_this, fieldValue, 'email', 'Email').then(()=>{
+        resolve();
+      }).catch((errorMsg)=>{
+        reject(errorMsg);
+      });
+    });
+  },
+  userNotExistField(my_this, fieldValue, fieldName, fieldDisplayName) {
+
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      my_this.get('store').query('user', {
+        filter: {
+          fieldName: fieldValue
+        }
+      }).then((records) => {
+        let filteredRecords = records.filter((item)=>{
+          return item.get(fieldName)===fieldValue;
+        }, records);
+        if(filteredRecords.length>0) {
+          let userUsing = (my_this.get('currentUser') && filteredRecords[0].get('id') === my_this.get('currentUser').id) ? 'you': 'another user';
+          let errorMsg = fieldDisplayName +' "'+fieldValue+'" is already in use by '+userUsing+'.  Please select a different Display Name.';
+          reject(errorMsg);
+        } else {
+          resolve();
+        }
+      }).catch(() =>{
+        resolve();
+      });
+    });
+  },
+  userNotExist(my_this, changeset) {
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      let promises = [];
+      promises.push(my_this.get('userNotExistField')(my_this, changeset.get('displayName'), 'displayName', 'Display Name'));
+      promises.push(my_this.get('userNotExistField')(my_this, changeset.get('email'), 'email', 'Email'));
+      Ember.RSVP.all(promises).then((record)=>{
+        resolve(record);
+      }).catch((errorMsg)=>{
+        reject(errorMsg);
+      });
+    });
   }
 });
