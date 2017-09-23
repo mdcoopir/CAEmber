@@ -10,7 +10,9 @@
     </div>
     <div class="bannerImage">&nbsp;</div>
     <div class='paper-right siteMenu'>
-      {{#link-to "members.myHome.main"}}{{casession.currentUser.displayName}}{{/link-to}}
+      {{#if casession.currentUser}}
+        {{#link-to "members.myHome.main"}}{{casession.currentUser.displayName}}{{/link-to}}
+      {{/if}}
       {{#paper-menu class='memberMenu' as |menu|}}
         {{#menu.trigger}}
           {{#paper-button }}

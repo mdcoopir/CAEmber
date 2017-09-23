@@ -4,7 +4,23 @@ export default Ember.Controller.extend({
   casession: Ember.inject.service(),
   store: Ember.inject.service(),
   me: Ember.computed.alias('casession.currentUser'),
+  changePassword: false,
   emailValidation: [{
+      message: 'Please provide email in a valid format',
+      validate: (inputValue) => {
+        let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        return emailPattern.test(inputValue);
+      }
+    },
+    {
+      message: 'Email already in use.',
+      validate: (inputValue) => {
+        let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        return emailPattern.test(inputValue);
+      }
+    }
+  ],
+  emailValidationAlt: [{
     message: 'Please provide email in a valid format',
     validate: (inputValue) => {
       let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -19,6 +35,9 @@ export default Ember.Controller.extend({
     }
   }],
   actions: {
+    togglePWChange() {
+      this.set('changePassword', !this.get('changePassword'));
+    },
     saveAccount(changeset) {
       this.get('flashMessages').clearMessages();
 
